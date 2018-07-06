@@ -1,0 +1,49 @@
+get.php
+
+<?php
+if(!empty($_POST['URL'])) {
+$getfile = $_POST['URL'] . 'robots.txt'; // добавляем имя файла
+$file_headers = @get_headers($getfile); // подготавливаем headers страницы
+ 
+if ($file_headers[0] == 'HTTP/1.1 404 Not Found') {
+ 
+    echo 'Возникла ошибка, при получении файла';
+ 
+} else if ($file_headers[0] == 'HTTP/1.1 200 OK') {
+    // открываем файл для записи, поехали!
+    $file = fopen('robots.txt', 'w');
+    // инициализация cURL
+    $ch = curl_init();
+          curl_setopt($ch, CURLOPT_URL, $getfile);
+          curl_setopt($ch, CURLOPT_FILE, $file);
+          curl_exec($ch);
+          fclose($file);
+          curl_close($ch);
+ 
+global $resultfile; // описываем как глобальную переменную
+       $resultfile = 'robots.txt'; // файл, который получили
+ 
+if (!file_exists($resultfile)) {
+    // Если файл отсутвует, сообщаем ошибку
+    echo "Ошибка обработки файла: $resultfile";
+ 
+} else {
+    // Начинаем обрабатывать файл, если все прошло успешно
+    // $file_arr = file("robots.txt");
+    $textget = file_get_contents($resultfile);
+               htmlspecialchars($textget); // при желании, можно вывести на экран через echo
+ 
+    if (preg_match("/Host/", $textget)) {
+        echo "Деректива Host есть";
+    } else {
+        echo "Дерективы Host нет";
+    }
+ 
+    echo 'Размер файла ' . $resultfile . ': ' . filesize($resultfile) . ' байт';
+ 
+}
+}
+} else {
+  echo 'Вы ничего не ввели :(';
+}
+?>
