@@ -22,15 +22,13 @@ $url = htmlspecialchars($_POST['name']);// Очищаем введенное з�
 
 if (!filter_var($url, FILTER_VALIDATE_URL) === false) {//Проверка имени сайта
     echo("Адрес сайта $url");
+    include 'chek.php';
 } else {
     echo("$url неверный адрес сайта");
 }
 
 
-$file_headers = get_headers($url, 0);// подготавливаем headers страницы
-echo "<pre>";
-print_r($file_headers);
-echo "</pre>";
+
 ?>
 	
 	
