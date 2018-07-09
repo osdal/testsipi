@@ -1,4 +1,4 @@
-﻿<?php 
+﻿<?php /*
 	//$url = htmlspecialchars($_POST['name']);
 	// Remove all illegal characters from a url
 	$url = filter_var($url, FILTER_SANITIZE_URL);
