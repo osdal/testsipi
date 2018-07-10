@@ -7,14 +7,15 @@ if (preg_match("/200/",$file_headers[0])){
 	echo 'Есть редирект'; 
 } else (preg_match("/5??/",$file_headers[0])) {
 	echo "Проблема на сервере";
-}endif;
+}endif;*/
 echo "<pre>";
 print_r($file_headers);
-echo "</pre>";*/
+echo "</pre>";
 echo "$file_headers[0]";
 if (preg_match("/200/",$file_headers[0])) {
 	echo 'Редиректа нет';
 }elseif (preg_match("/3??/",$file_headers[0])){
 	echo 'Есть редирект';
+	echo '<br />Redirect url: ' . $url[$_GET['url']];
 }
 ?>
