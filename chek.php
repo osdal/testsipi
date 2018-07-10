@@ -1,10 +1,11 @@
 <?php
-$file_headers = get_headers($url, 0);// подготавливаем headers страницы
+$file_headers = @get_headers($url, 0);// подготавливаем headers страницы
 
 
 //echo "$file_headers[0]";
 if (preg_match("/200/",$file_headers[0])) {
 	echo "Редиректа нет. Проверяем сайт $url";
+	include 'robottxt.php';
 }elseif (preg_match("/3??/",$file_headers[0])){
 	echo 'Есть редирект <br />';
 	
@@ -32,6 +33,8 @@ if (preg_match("/200/",$file_headers[0])) {
 }
 
 echo "Проверяем сайт: $redir";
+$url = $redir;
+include 'robottxt.php';
 
 }
 ?>
