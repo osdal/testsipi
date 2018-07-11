@@ -18,18 +18,24 @@ if (!file_exists($resultfile)) {
  
 } else {
     // Начинаем обрабатывать файл, если все прошло успешно
+    $headers = get_headers($get_robottxt);//Получаем заголовки
+    $response_code = substr($headers[0], 9, 3);//Вырезаем код ответа 
+    echo "<br />код ответа сервера для файла robot.txt равен $response_code<br />";
+    
     
     $textget = file_get_contents($resultfile);
                htmlspecialchars($textget); // при желании, можно вывести на экран через echo
+ 				/*
  				echo "<pre>";
  				echo $textget;
  				echo "</pre>";
+ 				*/
     if (preg_match("/Host/", $textget)) {//Проверяем наличие директивы Host
         echo "Директива Host есть <br />";
         $num_host = substr_count($textget, 'Host');//Посчитываем количество директив Host
         echo "Ноst используется $num_host раз"; 
     } else {
-        echo "Директивы Host нет <br />";
+        echo "Проверка невозможна, т. к. директивы Host нет <br />";
     }
  
     echo '<br /> Размер файла ' . $resultfile . ': ' . filesize($resultfile) . ' байт'.'<br />';
@@ -38,5 +44,8 @@ if (!file_exists($resultfile)) {
     } else {
         echo "Директивы Sitemap нет <br />";
     }
+    $result_table = file_get_contents('result_table.php');
+    echo $result_table;
+    
  
 }
