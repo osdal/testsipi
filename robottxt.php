@@ -10,7 +10,7 @@ $ch = curl_init();// инициализация cURL
   curl_close($ch);
 
 global $resultfile; // описываем как глобальную переменную
-$resultfile = 'robots.txt'; // файл, который получили
+$resultfile = 'robots.txt'; // файл, который получили с сайта
 
 if (!file_exists($resultfile)) {
     // Если файл отсутвует, сообщаем ошибку
@@ -18,18 +18,25 @@ if (!file_exists($resultfile)) {
  
 } else {
     // Начинаем обрабатывать файл, если все прошло успешно
-    // $file_arr = file("robots.txt");
+    
     $textget = file_get_contents($resultfile);
                htmlspecialchars($textget); // при желании, можно вывести на экран через echo
  				echo "<pre>";
  				echo $textget;
  				echo "</pre>";
-    if (preg_match("/Host/", $textget)) {
-        echo "Директива Host есть";
+    if (preg_match("/Host/", $textget)) {//Проверяем наличие директивы Host
+        echo "Директива Host есть <br />";
+        $num_host = substr_count($textget, 'Host');//Посчитываем количество директив Host
+        echo "Ноst используется $num_host раз"; 
     } else {
-        echo "Директивы Host нет";
+        echo "Директивы Host нет <br />";
     }
  
-    echo 'Размер файла ' . $resultfile . ': ' . filesize($resultfile) . ' байт';
+    echo '<br /> Размер файла ' . $resultfile . ': ' . filesize($resultfile) . ' байт'.'<br />';
+    if (preg_match("/Sitemap/", $textget)){//Проверяем наличие директивы Sitemap
+    	echo "Директива Sitemap есть <br />";
+    } else {
+        echo "Директивы Sitemap нет <br />";
+    }
  
 }
