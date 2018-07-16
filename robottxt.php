@@ -43,6 +43,7 @@ $response_code = substr($headers[0], 9, 3);//Вырезаем код ответ�
     echo '<br /> Размер файла ' . $resultfile . ': ' . filesize($resultfile) . ' байт'.'<br />';
     $file_size = filesize($resultfile);
     if (preg_match("/Sitemap/", $textget)){//Проверяем наличие директивы Sitemap
+    	$sitemap = true;
     	echo "Директива Sitemap есть <br />";
     } else {
         echo "Директивы Sitemap нет <br />";

@@ -1,0 +1,11 @@
+﻿.error_cell {
+	background: #F79494;
+}
+
+.ok_cell {
+	background: #A6ECA1;
+}
+
+.cell_heigt {
+	min-height: 10px;
+}

@@ -1,100 +1,43 @@
-<table border="1px" cellspacing="0">
+<?php include 'header.php';
+	  include 'text_variables.php'; 
+	  ?>
+<table border="1px" cellspacing="0" width="80%">
 	<tr>
 		<th>№</th>
 		<th>Название проверки</th>
 		<th>Статус</th>
 	</tr>
-	<tr><th>
+	<tr class="cell_heigt"><th>
 	<tr>
-		<th rowspan="2">1</th>
-		<td rowspan="2">Проверка наличия файла robot.txt</td>
+		
 		<?php
-		echo '<th rowspan="2">';
-		 if ($response_code == 404) 
-		 			{echo 'Ошибка</th>';
-					 echo '<td>Состояние</td>';
-					 echo '<td>Файл robot.txt отсутствутет</td>';
-					 echo '<tr>';
-					 echo '<td>Рекомендации</td>';
-					 echo '<td>Программист: Создать файл robot.txt и  разместить его на сайте</td>';
-					 echo '</tr>';
+		
+		 	if ($response_code == 404) 
+		 			{echo $error_robot_txt;
 				} else
-					{echo 'Ok</th>
-					 	  <td>Состояние</td>
-					      <td>Файл robot.txt присутствутет</td>
-					      <tr>
-					      <td>Рекомендации</td>
-					      <td>Доработки не требуется</td>
-					      </tr>
-					      </tr>
-						  <tr>';
+					{echo $ok_robot_txt;
 					 	if ($num_host != 0) {
-						  echo '<th rowspan="2">2</th>
-								<td rowspan="2">Проверка указания директивы Host</td>
-								<th rowspan="2">
-								Ok</th>
-								<td>Состояние</td>
-							    <td>Директива Host указана</td>
-							    <tr>
-							    <td>Рекомендации</td>
-							    <td>Доработки не требуется</td>
-							    </tr>';
+						  echo $Host_ok;
 					    if ($num_host == 1) {
-								echo '<tr>
-								<th rowspan="2">3</th>
-								<td rowspan="2">Проверка количества директив Host прописанных в файле</td>
-								<th rowspan="2">
-								Ok</th>
-								<td>Состояние</td>
-							    <td>В файле прописана 1 директива Host</td>
-							    <tr>
-							    <td>Рекомендации</td>
-							    <td>Доработки не требуется</td>
-								</tr>';
+								echo $Host_num_ok;
 						} else {
-							echo '<tr>
-								<th rowspan="2">3</th>
-								<td rowspan="2">Проверка количества директив Host прописанных в файле</td>
-								<th rowspan="2">
-								Ошибка</th>
-								<td>Состояние</td>
-							    <td>В файле прописана несколько директив Host</td>
-							    <tr>
-							    <td>Рекомендации</td>
-							    <td>Программист. Директива Host должна быть указана в файле только 1 раз. Необходимо удалить все дополнительные директивы Host и оставить только 1 корректную и соответствующую основному зеркалу сайта.</td>
-								</tr>';
+							echo $error_Host_num;
 						}
 
-
-
-
 						} else {
-							echo '<th rowspan="2">2</th>
-								<td rowspan="2">Проверка указания директивы Host</td>
-								<th rowspan="2">
-								Ошибка</th>
-								<td>Состояние</td>
-							    <td>В файле robot.txt не указана директива Host</td>
-							    <tr>
-							    <td>Рекомендации</td>
-							    <td>Программист: Для того, чтобы поисковые системы знали какая версия сайта является основным зеркалом, необходимо прописать  адрес основного зеркала в директиве Host. В данный момент это не прописано. Необходимо добавить в файл robot.txt директиву Host. Директива Host задается в файле 1 раз после всех правил</td>
-							    </tr>';
+							echo $error_Host;
 						}
-					 if($file_size < 32000){	
-					 echo "<tr>
-								<th rowspan=\"2\">4</th>
-								<td rowspan=\"2\">Проверка размера файла robot.txt</td>
-								<th rowspan=\"2\">
-								Ок</th>
-								<td>Состояние</td>
-							    <td>Размер файла robot.txt составляет $file_size байт, что находится в пределах допустимой нормы</td>
-							    <tr>
-							    <td>Рекомендации</td>
-							    <td>Доработка не требуется</td>
-								</tr>";
-							}
-
-
+						 if($file_size < 32000){	
+						 echo $size_robot_txt_ok;
+								} else {
+									echo $error_size_robot_txt;
+								}
+						 if($sitemap) {
+						 	echo $ok_sitemap;
+						 } else echo $error_sitemap;
+						 if($response_code == 200){
+						 	echo $response_code_ok;
+						 } else echo $error_response_code;
 					 }
 
 					  ?> 
