@@ -1,6 +1,15 @@
 <?php include 'header.php';
 	  include 'text_variables.php'; 
-	  ?>
+
+// включаем буфер
+ob_start();
+
+
+// отключаем и очищаем буфер
+//ob_end_clean(); ?>
+	 
+<?php
+echo '
 <table border="1px" cellspacing="0" width="80%">
 	<tr>
 		<th>№</th>
@@ -8,7 +17,7 @@
 		<th>Статус</th>
 	</tr>
 	<tr class="cell_heigt"><th>
-	<tr>
+	<tr>';?>
 		
 		<?php
 		
@@ -41,6 +50,25 @@
 					 }
 
 					  ?> 
+<?php echo '
 	</tr>
 	<tr></tr>
-</table>
+</table>';?>
+<?php
+
+$content;
+// сохраняем всё что есть в буфере в переменную $content
+$content = ob_get_contents();
+?>
+
+<?php
+$file_tmp = 'tmp_file.txt';
+
+
+// Пишем содержимое буфера в файл
+file_put_contents($file_tmp, $content);
+?>
+
+<form action="save_file.php" class="">
+	<p><input type="submit", value="Сохранить файл в Excel" /></p>
+</form>
